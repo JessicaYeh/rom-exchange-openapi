@@ -1,0 +1,272 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "ROM Exchange",
+    "description": "# About\nThis is the documentation for the API that powers ROM Exchange. It is public and free to use. There are currently no usage limits or restrictions, but please use common sense when using the API and don't do anything that would cause too much traffic for the server. All usage is tracked, and we reserve the right to block anything that we consider abusive!\n\n# Attribution Requirement\nIf you use the API in a public manner, you are required to give ROM Exchange credit by providing a clearly visible link to [romexchange.com](https://www.romexchange.com) on whatever tool is using the API. A good example is how [ROGuard](https://www.roguard.net/db/items/12308/) uses and attributes ROM Exchange.\n"
+  },
+  "externalDocs": {
+    "description": "Issues, support, and feedback: https://github.com/JessicaYeh/rom-exchange-web/issues",
+    "url": "https://github.com/JessicaYeh/rom-exchange-web/issues"
+  },
+  "tags": [
+    {
+      "name": "Item"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://www.romexchange.com/api"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "Item"
+        ],
+        "summary": "Get the price history and statistics for any item or set of items",
+        "description": "This is currently the only API endpoint available. It is highly configurable via query parameters. Every response will always include price data for every server (Global, SEA) and time range (All, Month, Week).\n\\\n\\\nSome sample requests:\n\\\n\\\nGet all pet materials, sorted by biggest increase in price during one week on the global server: [https://www.romexchange.com/api?type=13&sort=change&sort_dir=desc&sort_server=global&sort_range=week]()\n\\\n\\\nGet all items that contain the word `mastela`: [https://www.romexchange.com/api?item=mastela&exact=false]()\n",
+        "operationId": "getItems",
+        "parameters": [
+          {
+            "name": "item",
+            "in": "query",
+            "description": "Filter to items that match this name. Default is to get a case insensitive exact match. To get any item that contains a name, i.e. get all items that contain 'Goibne', set the `exact` parameter to `false`. To search for multiple items at once, separate each item name with a pipe character, i.e. `elunium|oridecon`. If searching for multiple items, the `exact` parameter has no effect, but is forced to `true`.",
+            "example": "Shining Stone",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "exact",
+            "in": "query",
+            "description": "Specify whether the search should look for a single item name that matches the `item` parameter exactly (case insensitive) or should look for any item name that contains `item` parameter.",
+            "example": false,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Filter to items that match this type. 1 Weapons, 2 Off-hand, 3 Armors, 4 Garments, 5 Footgears, 6 Accessory, 7 Blueprint, 8 Potion / Effect, 9 Refine, 10 Scroll / Album, 11 Material, 12 Holiday material, 13 Pet material, 14 Premium, 15 Costume, 16 Head, 17 Face, 18 Back, 19 Mouth, 20 Tail, 21 Weapon card, 22 Off-hand card, 23 Armor card, 24 Garments card, 25 Shoe card, 26 Accessory card, 27 Headwear card",
+            "schema": {
+              "$ref": "#/components/schemas/ItemType"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Specify how the results should be sorted. If set to `change`, sorts by percent change in price over time. If set to `diff`, sorts by percent difference in latest price between the Global and SEA servers. If not set, the default sort is alphabetical.",
+            "example": "change",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "change",
+                "diff"
+              ]
+            }
+          },
+          {
+            "name": "sort_dir",
+            "in": "query",
+            "description": "Specify the direction that results should be sorted. If set to `desc` the largest value is first. If set to `asc` the smallest value is first.",
+            "example": "desc",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "asc"
+            }
+          },
+          {
+            "name": "sort_server",
+            "in": "query",
+            "description": "Specify which server to use for sorting. Data for both servers will always be returned regardless of which option is used here.",
+            "example": "sea",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "global",
+                "sea"
+              ],
+              "default": "global"
+            }
+          },
+          {
+            "name": "sort_range",
+            "in": "query",
+            "description": "Specify which time range to use for sorting. Has no effect if `sort` is set to `diff`, since that only uses the latest price instead of a time range.",
+            "example": "month",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "all",
+                "month",
+                "week"
+              ],
+              "default": "week"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Specify which page of results to show. Up to 20 results are returned at a time. When `page=1` the first 20 results are shown, when `page=2` the next 20 results are shown, etc.",
+            "example": 2,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Item"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ItemType": {
+        "type": "integer",
+        "enum": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27
+        ],
+        "example": 13,
+        "description": "An integer that corresponds to an item type. 1 Weapons, 2 Off-hand, 3 Armors, 4 Garments, 5 Footgears, 6 Accessory, 7 Blueprint, 8 Potion / Effect, 9 Refine, 10 Scroll / Album, 11 Material, 12 Holiday material, 13 Pet material, 14 Premium, 15 Costume, 16 Head, 17 Face, 18 Back, 19 Mouth, 20 Tail, 21 Weapon card, 22 Off-hand card, 23 Armor card, 24 Garments card, 25 Shoe card, 26 Accessory card, 27 Headwear card"
+      },
+      "DataPoint": {
+        "type": "object",
+        "properties": {
+          "snap": {
+            "description": "Whether the item was in snapping (open bet) mode.",
+            "type": "boolean",
+            "example": false
+          },
+          "price": {
+            "description": "The price of the item in zeny.",
+            "type": "integer",
+            "example": 317142
+          },
+          "time": {
+            "description": "The date and time (ISO 8601 UTC) that the price for the item was recorded.",
+            "type": "string",
+            "example": "2019-02-11T14:29:39Z"
+          }
+        }
+      },
+      "TimeRange": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "description": "A list of data points. Sorted by time, earliest is first. Max number of points returned is 50. If the historical data contains more than 50 points, the 50 points chosen to be returned are spread out evenly over the historical data time range.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DataPoint"
+            },
+            "maxItems": 50
+          },
+          "change": {
+            "description": "The percent that the price changed over the time range. Calculated using the first and last data points in this range. If there are no data points or only one data point, the change is 0.",
+            "type": "number",
+            "example": 0,
+            "minimum": -100,
+            "maximum": 100
+          }
+        }
+      },
+      "Server": {
+        "type": "object",
+        "properties": {
+          "all": {
+            "$ref": "#/components/schemas/TimeRange"
+          },
+          "month": {
+            "$ref": "#/components/schemas/TimeRange"
+          },
+          "week": {
+            "$ref": "#/components/schemas/TimeRange"
+          },
+          "latest": {
+            "description": "The most recent price recorded.",
+            "type": "integer",
+            "example": 317142
+          }
+        }
+      },
+      "Item": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "The name of the item.",
+            "type": "string",
+            "example": "Shining Stone"
+          },
+          "type": {
+            "$ref": "#/components/schemas/ItemType"
+          },
+          "image": {
+            "description": "A URL to the item image. `null` if it doesn't exist. (Currently `null` for every item)",
+            "type": "string",
+            "example": null
+          },
+          "global_sea_diff": {
+            "description": "The percent difference between the latest price of the item on the Global and SEA servers. A positive number means SEA is higher, and a negative number means Global is higher.",
+            "type": "number",
+            "example": 0,
+            "minimum": -100,
+            "maximum": 100
+          },
+          "global": {
+            "$ref": "#/components/schemas/Server"
+          },
+          "sea": {
+            "$ref": "#/components/schemas/Server"
+          }
+        }
+      }
+    }
+  }
+}
