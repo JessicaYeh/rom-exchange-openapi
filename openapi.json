@@ -3,7 +3,7 @@
   "info": {
     "version": "1.0.0",
     "title": "ROM Exchange",
-    "description": "# About\nThis is the documentation for the API that powers [https://www.romexchange.com](). It is public and free to use. There are currently no usage limits or restrictions, but please use common sense when using the API and don't do anything that would cause too much traffic for the server. All usage is tracked, and we reserve the right to block anything that we consider abusive!\n\n# Attribution Requirement\nIf you use the API in a public manner, you are required to give ROM Exchange credit by providing a clearly visible link to [romexchange.com](https://www.romexchange.com) on whatever tool is using the API. A good example is how [ROGuard](https://www.roguard.net/db/items/12308/) uses and attributes ROM Exchange.\n"
+    "description": "# About\nThis is the documentation for the API that powers [https://www.romexchange.com](https://www.romexchange.com). It is public and free to use. There are currently no usage limits or restrictions, but please use common sense when using the API and don't do anything that would cause too much traffic for the server. All usage is tracked, and we reserve the right to block anything that we consider abusive!\n\n# Attribution Requirement\nIf you use the API in a public manner, you are required to give ROM Exchange credit by providing a clearly visible link to [romexchange.com](https://www.romexchange.com) on whatever tool is using the API. A good example is how [ROGuard](https://www.roguard.net/db/items/12308/) uses and attributes ROM Exchange.\n"
   },
   "externalDocs": {
     "description": "Issues, support, and feedback: https://github.com/JessicaYeh/rom-exchange-web/issues",
@@ -26,7 +26,7 @@
           "Item"
         ],
         "summary": "Get the price history and statistics for any item or set of items",
-        "description": "This is currently the only API endpoint available. It is highly configurable via query parameters. Every response will always include price data for every server (Global, SEA) and time range (All, Month, Week).\n\\\n\\\nSome sample requests:\n\\\n\\\nGet all pet materials, sorted by biggest increase in price during one week on the global server: [https://www.romexchange.com/api?type=13&sort=change&sort_dir=desc&sort_server=global&sort_range=week]()\n\\\n\\\nGet all items that contain the word `mastela`: [https://www.romexchange.com/api?item=mastela&exact=false]()\n",
+        "description": "This is currently the only API endpoint available. It is highly configurable via query parameters. Every response will always include price data for every server (Global, SEA) and time range (All, Month, Week).\n\\\n\\\nSome sample requests:\n\\\n\\\nGet all pet materials, sorted by biggest increase in price during one week on the global server: [https://www.romexchange.com/api?type=13&sort=change&sort_dir=desc&sort_server=global&sort_range=week](https://www.romexchange.com/api?type=13&sort=change&sort_dir=desc&sort_server=global&sort_range=week)\n\\\n\\\nGet all items that contain the word `mastela`: [https://www.romexchange.com/api?item=mastela&exact=false](https://www.romexchange.com/api?item=mastela&exact=false)\n",
         "operationId": "getItems",
         "parameters": [
           {
