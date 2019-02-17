@@ -7,10 +7,11 @@ info:
   # Describe your API here, you can use GFM (https://guides.github.com/features/mastering-markdown) here
   description: |
     # About
-    This is the documentation for the API that powers ROM Exchange. It is public and free to use. There are currently no usage limits or restrictions, but please use common sense when using the API and don't do anything that would cause too much traffic for the server. All usage is tracked, and we reserve the right to block anything that we consider abusive!
+    This is the documentation for the API that powers [https://www.romexchange.com](). It is public and free to use. There are currently no usage limits or restrictions, but please use common sense when using the API and don't do anything that would cause too much traffic for the server. All usage is tracked, and we reserve the right to block anything that we consider abusive!
     
     # Attribution Requirement
     If you use the API in a public manner, you are required to give ROM Exchange credit by providing a clearly visible link to [romexchange.com](https://www.romexchange.com) on whatever tool is using the API. A good example is how [ROGuard](https://www.roguard.net/db/items/12308/) uses and attributes ROM Exchange.
+    
     
 externalDocs:
   description: 'Issues, support, and feedback: https://github.com/JessicaYeh/rom-exchange-web/issues'

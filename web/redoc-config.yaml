@@ -1,4 +1,6 @@
+hideLoading: true
+hideDownloadButton: true
 theme:
   colors:
     primary:
-      main: '#32329f'
+      main: '#00796b'
