@@ -48,6 +48,9 @@ paths:
         \
         \
         Get all items that contain the word `mastela`: [https://www.romexchange.com/api?item=mastela&exact=false](https://www.romexchange.com/api?item=mastela&exact=false)
+        \
+        \
+        Get the item named `shining stone` and strip out the chart data (only get the latest price, and percent change in price), useful for tools that have a response size limit: [https://www.romexchange.com/api?item=shining%20stone&exact=true&slim=true](https://www.romexchange.com/api?item=shining%20stone&exact=true&slim=true)
       
       # operationId should be unique across the whole specification
       operationId: getItems
@@ -67,6 +70,12 @@ paths:
           schema:
             type: boolean
             default: true
+        - name: slim
+          in: query
+          description: When set to `true`, every `data` array will be removed, to reduce the size of the returned JSON payload.
+          schema:
+            type: boolean
+            default: false
         - name: type
           in: query
           description: Filter to items that match this type.
