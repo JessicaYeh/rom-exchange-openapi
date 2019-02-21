@@ -194,6 +194,10 @@ components:
           description: The most recent price recorded.
           type: integer
           example: 317142
+        latest_time:
+          description: The date and time (ISO 8601 UTC) that the most recent price was recorded.
+          type: string
+          example: '2019-02-11T14:29:39Z'
     Item:
       type: object
       properties:
