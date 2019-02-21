@@ -26,7 +26,7 @@
           "Item"
         ],
         "summary": "Get the price history and statistics for any item or set of items",
-        "description": "This is currently the only API endpoint available. It is highly configurable via query parameters. Every response will always include price data for every server (Global, SEA) and time range (All, Month, Week).\n\\\n\\\nSome sample requests:\n\\\n\\\nGet all pet materials, sorted by biggest increase in price during one week on the global server: [https://www.romexchange.com/api?type=13&sort=change&sort_dir=desc&sort_server=global&sort_range=week](https://www.romexchange.com/api?type=13&sort=change&sort_dir=desc&sort_server=global&sort_range=week)\n\\\n\\\nGet all items that contain the word `mastela`: [https://www.romexchange.com/api?item=mastela&exact=false](https://www.romexchange.com/api?item=mastela&exact=false)\n",
+        "description": "This is currently the only API endpoint available. It is highly configurable via query parameters. Every response will always include price data for every server (Global, SEA) and time range (All, Month, Week).\n\\\n\\\nSome sample requests:\n\\\n\\\nGet all pet materials, sorted by biggest increase in price during one week on the global server: [https://www.romexchange.com/api?type=13&sort=change&sort_dir=desc&sort_server=global&sort_range=week](https://www.romexchange.com/api?type=13&sort=change&sort_dir=desc&sort_server=global&sort_range=week)\n\\\n\\\nGet all items that contain the word `mastela`: [https://www.romexchange.com/api?item=mastela&exact=false](https://www.romexchange.com/api?item=mastela&exact=false)\n\\\n\\\nGet the item named `shining stone` and strip out the chart data (only get the latest price, and percent change in price), useful for tools that have a response size limit: [https://www.romexchange.com/api?item=shining%20stone&exact=true&slim=true](https://www.romexchange.com/api?item=shining%20stone&exact=true&slim=true)\n",
         "operationId": "getItems",
         "parameters": [
           {
@@ -46,6 +46,15 @@
             "schema": {
               "type": "boolean",
               "default": true
+            }
+          },
+          {
+            "name": "slim",
+            "in": "query",
+            "description": "When set to `true`, every `data` array will be removed, to reduce the size of the returned JSON payload.",
+            "schema": {
+              "type": "boolean",
+              "default": false
             }
           },
           {
