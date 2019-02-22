@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: '1.0.0'
+  version: '1.0.1'
   
   title: ROM Exchange
   
@@ -11,6 +11,10 @@ info:
     
     # Attribution Requirement
     If you use the API in a public manner, you are required to give ROM Exchange credit by providing a clearly visible link to [romexchange.com](https://www.romexchange.com) on whatever tool is using the API. A good example is how [ROGuard](https://www.roguard.net/db/items/12308/) uses and attributes ROM Exchange.
+    
+    # Recent Changes
+    - Feb 22, 2019 - Added fuzzy search fallback, and `autocorrect_accuracy` added to response if fuzzy search used
+    - Feb 21, 2019 - Added `slim` query parameter. Added `latest_time` to response
     
     
 externalDocs:
