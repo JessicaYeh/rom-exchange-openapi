@@ -24,34 +24,6 @@ tags:
 servers:
   - url: 'https://www.romexchange.com/api'
 paths:
-  /items.json:
-    get:
-      tags:
-        - Item
-      summary: Get an alphabetical list of all items
-      operationId: getAllItems
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    type:
-                      $ref: '#/components/schemas/ItemType'
-                    name:
-                      type: string
-                      example: Shining Stone
-                example:
-                  - type: 11
-                    name: Abyss Flower
-                  - type: 21
-                    name: Bongun Card
-                  - type: 8
-                    name: Candy
   /:
     get:
       tags:
@@ -150,6 +122,34 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Item'
+  /items.json:
+    get:
+      tags:
+        - Item
+      summary: Get an alphabetical list of all items
+      operationId: getAllItems
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    type:
+                      $ref: '#/components/schemas/ItemType'
+                    name:
+                      type: string
+                      example: Shining Stone
+                example:
+                  - type: 11
+                    name: Abyss Flower
+                  - type: 21
+                    name: Bongun Card
+                  - type: 8
+                    name: Candy
 components:
   schemas:
     ItemType:
