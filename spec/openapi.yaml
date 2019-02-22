@@ -13,8 +13,12 @@ info:
     If you use the API in a public manner, you are required to give ROM Exchange credit by providing a clearly visible link to [romexchange.com](https://www.romexchange.com) on whatever tool is using the API. A good example is how [ROGuard](https://www.roguard.net/db/items/12308/) uses and attributes ROM Exchange.
     
     # Recent Changes
-    - Feb 22, 2019 - Added fuzzy search fallback, and `autocorrect_accuracy` added to response if fuzzy search used
-    - Feb 21, 2019 - Added `slim` query parameter. Added `latest_time` to response
+    - **Feb 22, 2019**
+      - Added fuzzy search fallback, and `autocorrect_accuracy` added to response if fuzzy search used
+      - Added `items.json` request to get all items
+    - **Feb 21, 2019**
+      - Added `slim` query parameter
+      - Added `latest_time` to response
     
     
 externalDocs:
@@ -31,9 +35,37 @@ servers:
 # Holds the relative paths to the individual endpoints. The path is appended to the
 # basePath in order to construct the full URL. 
 paths:
-  '/': # path parameter in curly braces
+  '/items.json':
+    get:
+      tags:
+        - Item
+      summary: Get an alphabetical list of all items
+      operationId: getAllItems
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    type:
+                      $ref: '#/components/schemas/ItemType'
+                    name:
+                      type: string
+                      example: Shining Stone
+                example:
+                  - type: 11
+                    name: "Abyss Flower"
+                  - type: 21
+                    name: "Bongun Card"
+                  - type: 8
+                    name: "Candy"
+  '/':
 
-    get: # documentation for GET operation for this path
+    get:
       tags:
         - Item
       
@@ -42,9 +74,6 @@ paths:
       
       # you can use GFM in operation description too: https://guides.github.com/features/mastering-markdown
       description: |
-        This is currently the only API endpoint available. It is highly configurable via query parameters. Every response will always include price data for every server (Global, SEA) and time range (All, Month, Week).
-        \
-        \
         Some sample requests:
         \
         \
