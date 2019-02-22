@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.0.0
+  version: 1.0.1
   title: ROM Exchange
   description: |
     # About
@@ -8,6 +8,10 @@ info:
 
     # Attribution Requirement
     If you use the API in a public manner, you are required to give ROM Exchange credit by providing a clearly visible link to [romexchange.com](https://www.romexchange.com) on whatever tool is using the API. A good example is how [ROGuard](https://www.roguard.net/db/items/12308/) uses and attributes ROM Exchange.
+
+    # Recent Changes
+    - Feb 22, 2019 - Added fuzzy search fallback, and `autocorrect_accuracy` added to response if fuzzy search used
+    - Feb 21, 2019 - Added `slim` query parameter. Added `latest_time` to response
 externalDocs:
   description: 'Issues, support, and feedback: https://github.com/JessicaYeh/rom-exchange-web/issues'
   url: 'https://github.com/JessicaYeh/rom-exchange-web/issues'
@@ -34,7 +38,7 @@ paths:
         Get all items that contain the word `mastela`: [https://www.romexchange.com/api?item=mastela&exact=false](https://www.romexchange.com/api?item=mastela&exact=false)
         \
         \
-        Get the item named `shining stone` and strip out the chart data (only get the latest price, and percent change in price), useful for tools that have a response size limit: [https://www.romexchange.com/api?item=shining%20stone&exact=true&slim=true](https://www.romexchange.com/api?item=shining%20stone&exact=true&slim=true)
+        Get the item named `shining stone` and strip out the chart data (only get the latest price, and percent change in price), useful for tools that have a response size limit: [https://www.romexchange.com/api?item=shining%20stone&slim=true](https://www.romexchange.com/api?item=shining%20stone&exact=true&slim=true)
       operationId: getItems
       parameters:
         - name: item
@@ -153,6 +157,10 @@ components:
       description: 'An integer that corresponds to an item type. 1 Weapons, 2 Off-hand, 3 Armors, 4 Garments, 5 Footgears, 6 Accessory, 7 Blueprint, 8 Potion / Effect, 9 Refine, 10 Scroll / Album, 11 Material, 12 Holiday material, 13 Pet material, 14 Premium, 15 Costume, 16 Head, 17 Face, 18 Back, 19 Mouth, 20 Tail, 21 Weapon card, 22 Off-hand card, 23 Armor card, 24 Garments card, 25 Shoe card, 26 Accessory card, 27 Headwear card'
     DataPoint:
       type: object
+      required:
+        - snap
+        - price
+        - time
       properties:
         snap:
           description: Whether the item was in snapping (open bet) mode.
@@ -168,6 +176,8 @@ components:
           example: '2019-02-11T14:29:39Z'
     TimeRange:
       type: object
+      required:
+        - change
       properties:
         data:
           description: 'A list of data points. Sorted by time, earliest is first. Max number of points returned is 50. If the historical data contains more than 50 points, the 50 points chosen to be returned are spread out evenly over the historical data time range.'
@@ -183,6 +193,12 @@ components:
           maximum: 100
     Server:
       type: object
+      required:
+        - all
+        - month
+        - week
+        - latest
+        - latest_time
       properties:
         all:
           $ref: '#/components/schemas/TimeRange'
@@ -191,15 +207,22 @@ components:
         week:
           $ref: '#/components/schemas/TimeRange'
         latest:
-          description: The most recent price recorded.
+          description: The most recent price recorded. Is `0` if the price has never been recorded.
           type: integer
           example: 317142
         latest_time:
-          description: The date and time (ISO 8601 UTC) that the most recent price was recorded.
+          description: The date and time (ISO 8601 UTC) that the most recent price was recorded. Is `null`  if the price has never been recorded.
           type: string
           example: '2019-02-11T14:29:39Z'
     Item:
       type: object
+      required:
+        - name
+        - type
+        - image
+        - global_sea_diff
+        - global
+        - sea
       properties:
         name:
           description: The name of the item.
@@ -221,3 +244,9 @@ components:
           $ref: '#/components/schemas/Server'
         sea:
           $ref: '#/components/schemas/Server'
+        autocorrect_accuracy:
+          description: 'When searching for items with `exact=false`, if no items are found that contain the searched string, the search will fall back to using a fuzzy search to try to correct misspellings. When using fuzzy search, every item returned will include this property, which is a percent representing how close the item name is to the searched name. Higher percents are closer. Only items with an `autocorrect_accuracy` greater than 60 will be included. A max of 3 items found using fuzzy search will be returned.'
+          type: number
+          example: 92.5
+          minimum: 0
+          maximum: 100
