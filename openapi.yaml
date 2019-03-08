@@ -10,6 +10,9 @@ info:
     If you use the API in a public manner, you are required to give ROM Exchange credit by providing a clearly visible link to [romexchange.com](https://www.romexchange.com) on whatever tool is using the API. A good example is how [ROGuard](https://www.roguard.net/db/items/12308/) uses and attributes ROM Exchange.
 
     # Recent Changes
+    When integrating this API with your tool, please keep in mind that the request and response are not guaranteed to stay the same in the future, but we will do our best to ensure any changes would not break the majority of integrations that we know about.
+    - **Release date TBD**
+      - **Breaking change:** `sort_range` query parameter has been renamed to `range`. Data from every time range (all, month, and week) will no longer be returned all at the same time. Only data from one time range will be returned with each call, determined by the `range` query parameter. The default is `week`.
     - **Feb 22, 2019**
       - Added fuzzy search fallback, and `autocorrect_accuracy` added to response if fuzzy search used
       - Added `items.json` request to get all items
@@ -33,6 +36,7 @@ paths:
         Some sample requests:
         \
         \
+        # TODO: replace sort_range with range
         Get all pet materials, sorted by biggest increase in price during one week on the global server: [https://www.romexchange.com/api?type=13&sort=change&sort_dir=desc&sort_server=global&sort_range=week](https://www.romexchange.com/api?type=13&sort=change&sort_dir=desc&sort_server=global&sort_range=week)
         \
         \
@@ -97,7 +101,7 @@ paths:
             default: global
         - name: sort_range
           in: query
-          description: 'Specify which time range to use for sorting. Has no effect if `sort` is set to `diff`, since that only uses the latest price instead of a time range.'
+          description: 'BREAKING CHANGE NOTICE - This query parameter will be removed very soon and replaced with `range`. See the changelog above for more info. Specify which time range to use for sorting. Has no effect if `sort` is set to `diff`, since that only uses the latest price instead of a time range.'
           example: month
           schema:
             type: string
