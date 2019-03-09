@@ -14,7 +14,7 @@ info:
     
     # Recent Changes
     When integrating this API with your tool, please keep in mind that the request and response are not guaranteed to stay the same in the future, but we will do our best to ensure any changes would not break the majority of integrations that we know about.
-    - **Release date TBD**
+    - **Mar 9, 2019**
       - **Breaking change:** `sort_range` query parameter has been renamed to `range`. Data from every time range (all, month, and week) will no longer be returned all at the same time. Only data from one time range will be returned with each call, determined by the `range` query parameter. The default is `week`.
     - **Feb 22, 2019**
       - Added fuzzy search fallback, and `autocorrect_accuracy` added to response if fuzzy search used
@@ -52,8 +52,7 @@ paths:
         Some sample requests:
         \
         \
-        # TODO: replace sort_range with range
-        Get all pet materials, sorted by biggest increase in price during one week on the global server: [https://www.romexchange.com/api?type=13&sort=change&sort_dir=desc&sort_server=global&sort_range=week](https://www.romexchange.com/api?type=13&sort=change&sort_dir=desc&sort_server=global&sort_range=week)
+        Get all pet materials, sorted by biggest increase in price during one week on the global server: [https://www.romexchange.com/api?type=13&sort=change&sort_dir=desc&sort_server=global](https://www.romexchange.com/api?type=13&sort=change&sort_dir=desc&sort_server=global)
         \
         \
         Get all items that contain the word `mastela`: [https://www.romexchange.com/api?item=mastela&exact=false](https://www.romexchange.com/api?item=mastela&exact=false)
@@ -140,11 +139,9 @@ paths:
             type: string
             enum: [global, sea]
             default: global
-        # TODO: rename to range
-        - name: sort_range
+        - name: range
           in: query
-          # TODO: New description after change: Specify which time range of data to include in the response. Is also used for sorting.
-          description: BREAKING CHANGE NOTICE - This query parameter will be removed very soon and replaced with `range`. See the changelog above for more info. Specify which time range to use for sorting. Has no effect if `sort` is set to `diff`, since that only uses the latest price instead of a time range.
+          description: Specify which time range of data to include in the response. Is also used for sorting. Has no effect if `sort` is set to `diff`, since that only uses the latest price instead of a time range.
           example: month
           schema:
             type: string
