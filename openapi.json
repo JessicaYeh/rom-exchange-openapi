@@ -141,7 +141,103 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Item"
-                  }
+                  },
+                  "example": [
+                    {
+                      "name": "Shining Stone",
+                      "type": 13,
+                      "image": null,
+                      "global_sea_diff": -61,
+                      "global": {
+                        "week": {
+                          "data": [
+                            {
+                              "snap": true,
+                              "price": 94954,
+                              "time": "2019-01-26T15:43:51Z"
+                            },
+                            {
+                              "snap": true,
+                              "price": 126386,
+                              "time": "2019-01-27T15:38:45Z"
+                            },
+                            {
+                              "snap": true,
+                              "price": 203549,
+                              "time": "2019-01-28T15:29:22Z"
+                            },
+                            {
+                              "snap": true,
+                              "price": 270925,
+                              "time": "2019-01-29T18:03:17Z"
+                            },
+                            {
+                              "snap": false,
+                              "price": 382055,
+                              "time": "2019-01-30T15:49:38Z"
+                            },
+                            {
+                              "snap": false,
+                              "price": 397342,
+                              "time": "2019-01-31T15:17:32Z"
+                            },
+                            {
+                              "snap": false,
+                              "price": 390002,
+                              "time": "2019-02-01T16:41:04Z"
+                            }
+                          ],
+                          "change": 310.7
+                        },
+                        "latest": 390002,
+                        "latest_time": "2019-02-01T16:41:04Z"
+                      },
+                      "sea": {
+                        "week": {
+                          "data": [
+                            {
+                              "snap": false,
+                              "price": 127275,
+                              "time": "2019-01-26T20:15:02Z"
+                            },
+                            {
+                              "snap": false,
+                              "price": 146142,
+                              "time": "2019-01-27T20:33:01Z"
+                            },
+                            {
+                              "snap": false,
+                              "price": 160394,
+                              "time": "2019-01-28T18:04:22Z"
+                            },
+                            {
+                              "snap": false,
+                              "price": 161094,
+                              "time": "2019-01-29T20:52:37Z"
+                            },
+                            {
+                              "snap": false,
+                              "price": 158692,
+                              "time": "2019-01-30T20:22:14Z"
+                            },
+                            {
+                              "snap": false,
+                              "price": 155143,
+                              "time": "2019-01-31T19:05:18Z"
+                            },
+                            {
+                              "snap": false,
+                              "price": 153975,
+                              "time": "2019-02-01T19:40:33Z"
+                            }
+                          ],
+                          "change": 21
+                        },
+                        "latest": 153975,
+                        "latest_time": "2019-02-01T19:40:33Z"
+                      }
+                    }
+                  ]
                 }
               }
             }
@@ -284,9 +380,6 @@
       "Server": {
         "type": "object",
         "required": [
-          "all",
-          "month",
-          "week",
           "latest",
           "latest_time"
         ],
